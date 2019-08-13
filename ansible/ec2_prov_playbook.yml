@@ -60,7 +60,6 @@
 #
 - hosts: tag_Type_linux
   gather_facts: false
-  remote_user: ec2_user
   become: true
   become_user: root
 
