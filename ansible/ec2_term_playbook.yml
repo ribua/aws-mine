@@ -11,8 +11,9 @@
       run_once: true
       ec2_instance_facts:
         filters:
-          "tag:Type": "{{ ec2_tag_Type }}"
-          "tag:Role": "{{ ec2_tag_Role }}"
+#          "tag:Type": "{{ ec2_tag_Type }}"
+#          "tag:Role": "{{ ec2_tag_Role }}"
+          "tag:Role": ribus_world
         region: "{{ ec2_region }}"
       register: instances
 
@@ -26,6 +27,6 @@
       ec2:
         state: absent
         wait: true
-        instance_ids: "{{instances|json_query('instances[*].id')}}"
+        instance_ids: "{{instances|json_query('instances[*].instance_id')}}"
         region: "{{ ec2_region }}"
       when: instances
