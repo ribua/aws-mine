@@ -13,7 +13,7 @@
         filters:
 #          "tag:Type": "{{ ec2_tag_Type }}"
 #          "tag:Role": "{{ ec2_tag_Role }}"
-          "tag:Role": ribus_world
+          "tag:Role": ribus_world_win
         region: "{{ ec2_region }}"
       register: instances
 
