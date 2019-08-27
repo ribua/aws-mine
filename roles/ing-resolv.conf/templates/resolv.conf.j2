@@ -1,0 +1,7 @@
+{{ ansible_managed | comment }}
+# This file is managed by Ansible
+
+search {{ resolv_dns_search_domain }}
+
+nameserver {{ resolv_dns_servers[0]}}
+nameserver {{ resolv_dns_servers[1]}}

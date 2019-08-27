@@ -1,0 +1,17 @@
+---
+# tasks file for ing-cron
+- cron:
+    name: "find-immutable"
+    user: "root"
+    minute: "{{ 59 |random(seed=inventory_hostname) }}"
+    hour: "{{ 6 |random(seed=inventory_hostname) }}"
+    job: >
+        /usr/bin/lsattr -Ra 2>/dev/null /etc | awk '$1 ~ /i/ && $1 !~ /^\// { print "Immutable_file="$2 }' | logger -p local0.notice -t find_immutable
+
+- cron:
+    name:   "find-worldwritable"
+    user:   "root"
+    minute: "{{ 59 |random(seed=inventory_hostname) }}"
+    hour:   "{{ 6 |random(seed=inventory_hostname) }}"
+    job: >
+        find /etc/ /usr/bin/ /bin/ -perm -2 ! -type l | awk '{ print "file="$1 }' | logger -p local0.notice -t find_worldwritable

@@ -1,0 +1,41 @@
+---
+# tasks file for ing-rsyslog
+
+- name: OS | Install Syslog Package on host
+  yum:
+    name: rsyslog
+    state: present
+  tags:
+    - rpm
+    - rsyslog
+
+- name: OS | Start Rsyslog service on host
+  service:
+    name: rsyslog
+    state: started
+    enabled: true
+  tags:
+    - os
+    - rsyslog
+
+- name: OS | Syslog | Configure Firewalld for Rsyslog
+  firewalld:
+    port: 514/tcp
+    state: enabled
+    immediate: yes
+  tags:
+    - os
+    - rsyslog
+
+- name: OS | Syslog | Push out Rsyslog Configuration
+  template:
+    src: rsyslog.conf.j2
+    dest: /etc/rsyslog.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart rsyslog
+  tags:
+    - os
+    - rsyslog
+    - service

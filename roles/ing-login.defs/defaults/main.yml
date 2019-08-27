@@ -1,0 +1,15 @@
+---
+# defaults file for ing-login.defs
+ # Password aging settings
+os_auth_pw_max_age: 60
+os_auth_pw_min_age: 10
+os_auth_pw_warn_age: 7
+passhistory: 6
+
+# Password complexity settings
+pwquality_minlen: 8
+pwquality_maxrepeat: 3
+pwquality_lcredit: -1
+pwquality_ucredit: -1
+pwquality_dcredit: -1
+pwquality_ocredit: -1

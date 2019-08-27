@@ -1,0 +1,46 @@
+---
+# tasks file for ing-ntp
+- name: OS | ntp | Stop if we dont have the required variables
+  fail:
+    msg: Computer says no. This role needs 'ntp_servers' var to be set.
+  when: ntp_servers is undefined
+  tags:
+    - os
+    - ntp
+
+- name: OS | ntp | Install NTP Package
+  yum:
+    name: ntp
+    state: installed
+  notify: enable ntpd
+  tags:
+    - os
+    - ntp
+
+- name: OS | ntp | Install ntp.conf
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    group: root
+    mode: 0640
+  changed_when: false
+  notify: restart ntpd
+  tags:
+    - os
+    - ntp
+
+- name: OS | ntp | Restart Service
+  service:
+    name: ntpd
+    state: started
+    enabled: true
+
+- name: OS | ntp  | Disable  chronyd
+  service:
+    name: chronyd
+    state: stopped
+    enabled: no
+  tags:
+    - deploy_vim
+    - ceph

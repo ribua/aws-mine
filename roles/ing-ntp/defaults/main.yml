@@ -1,0 +1,7 @@
+---
+# defaults file for ing-ntp
+#
+ntp_servers:
+  - 153.107.37.53
+  - 192.168.75.161
+

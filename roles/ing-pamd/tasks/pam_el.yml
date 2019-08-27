@@ -1,0 +1,105 @@
+---
+
+- name: Insert faillock controls for {{ inventory_hostname }}
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: '^auth.*required.*pam_(tally|faillock).*'
+    insertafter: '^auth.*required.*pam_env'
+    line: "auth\trequired\tpam_faillock.so preauth deny={{fail_deny}} {% if fail_unlock != 0 %}unlock_time={{fail_unlock}}{% endif %}"
+    state: present
+  with_items:
+    - /etc/pam.d/system-auth
+    - /etc/pam.d/password-auth
+  when:
+    - ansible_distribution_major_version == '7'
+
+- name: Insert faillock controls for {{ inventory_hostname }}
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: '^account.*required.*pam_(tally|faillock).*'
+    insertbefore: '^account.*required.*pam_unix'
+    line: "account\trequired\tpam_faillock.so"
+    state: present
+  with_items:
+    - /etc/pam.d/system-auth
+    - /etc/pam.d/password-auth
+  when:
+    - ansible_distribution_major_version == '7'
+
+
+- name: Use pam_lastlog to set inactivity lockout on {{ inventory_hostname }}
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: '^auth.*required.*pam_lastlog.so.*'
+    insertafter: '^auth.*'
+    line: "auth\trequired\tpam_lastlog.so inactive={{inactive_lock}}"
+    state: "{{ 'absent' if (inactive_lock == 0) else 'present' }}"
+  with_items:
+    - /etc/pam.d/system-auth
+    - /etc/pam.d/password-auth
+  when:
+    - ansible_distribution_major_version == '6' or ansible_distribution_major_version == '7'
+
+
+- name: Configure lastlog database update for session logins on  {{ inventory_hostname }}
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: '^session.*optional.*pam_lastlog.so.*'
+    insertafter: '^session.*'
+    line: "session\toptional\tpam_lastlog.so silent"
+    state: "{{ 'absent' if (inactive_lock == 0) else 'present' }}"
+  with_items:
+    - /etc/pam.d/system-auth
+    - /etc/pam.d/password-auth
+  when:
+    - ansible_distribution_major_version == '6' or ansible_distribution_major_version == '7'
+
+- name: Insert faillock authfail controls for {{ inventory_hostname }}
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: '^auth.*\[default=die\].*pam_faillock.*'
+    insertafter: '^auth.*sufficient.*pam_unix'
+    line: "auth\t[default=die]\tpam_faillock.so authfail audit deny={{fail_deny}} {% if fail_unlock != 0 %}unlock_time={{fail_unlock}}{% endif %}"
+    state: present
+  with_items:
+    - /etc/pam.d/system-auth
+    - /etc/pam.d/password-auth
+  when:
+    - ansible_distribution_major_version == '7'
+
+
+- name: Remove unix.so based password history for {{ inventory_hostname }}
+  lineinfile:
+    dest: /etc/pam.d/system-auth
+    regexp: '^password.*sufficient.*pam_unix\.so.*'
+    insertbefore: '^password.*required.*pam_deny'
+    line: "password\tsufficient\tpam_unix.so sha512 shadow nullok try_first_pass use_authtok"
+    state: present
+  with_items:
+    - /etc/pam.d/system-auth
+    - /etc/pam.d/password-auth
+  when:
+    - ansible_distribution_major_version == '7'
+
+- name: Add pwhistory.so based password history for {{ inventory_hostname }}
+  lineinfile:
+    dest: /etc/pam.d/system-auth
+    regexp: '^password.*required.*pam_pwhistory.*'
+    insertbefore: '^password.*sufficient.*pam_unix'
+    line: "password\trequired\tpam_pwhistory.so remember={{passhistory}} use_authtok"
+    state: present
+  with_items:
+    - /etc/pam.d/system-auth
+    - /etc/pam.d/password-auth
+  when:
+    - ansible_distribution_major_version == '7'
+
+
+- name: create pwquality.conf password complexity configuration for {{ inventory_hostname }}
+  template:
+    src: pwquality.conf.j2
+    dest: /etc/security/pwquality.conf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution_major_version == '7'

@@ -1,0 +1,6 @@
+---
+# handlers file for ing-smtp
+- name: restart postfix
+  service:
+    name: postfix
+    state: restarted

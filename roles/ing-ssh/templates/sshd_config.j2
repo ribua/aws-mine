@@ -1,0 +1,85 @@
+{{ ansible_managed | comment }}
+
+# This file is managed by Ansible
+
+Protocol {{ ssh_Protocol }}
+SyslogFacility {{ ssh_SyslogFacility }}
+LogLevel {{ ssh_LogLevel }}
+{% if ssh_enable_root_login == true %}
+PermitRootLogin yes
+{% else %}
+PermitRootLogin no
+{% endif %}
+{% if ssh_PasswordAuthentication == false %}
+PasswordAuthentication no
+{% else %}
+PasswordAuthentication yes
+{% endif%}
+{% if ssh_ChallengeResponseAuthentication== true %}
+ChallengeResponseAuthentication yes
+{% else %}
+ChallengeResponseAuthentication no
+{% endif %}
+{% if ssh_UsePAM == false %}
+UsePAM no
+{% else %}
+UsePAM yes
+{% endif %}
+{% if ssh_X11Forwarding == true %}
+X11Forwarding yes
+{% else %}
+X11Forwarding no
+{% endif %}
+{% if ssh_UseDNS == true %}
+UseDNS yes
+{% else %}
+UseDNS no
+{% endif %}
+MaxAuthTries {{ ssh_MaxAuthTries }}
+{% if ssh_IgnoreRhosts == false %}
+IgnoreRhosts no
+{% else %}
+IgnoreRhosts yes
+{% endif %}
+{% if ssh_HostbasedAuthentication == true %}
+HostbasedAuthentication yes
+{% else %}
+HostbasedAuthentication no
+{% endif %}
+{% if ssh_PermitEmptyPasswords == true %}
+PermitEmptyPasswords yes
+{% else %}
+PermitEmptyPasswords no
+{% endif %}
+{% if ssh_PermitUserEnvironment == true %}
+PermitUserEnvironment yes
+{% else %}
+PermitUserEnvironment no
+{% endif %}
+Ciphers {{ ssh_Ciphers }}
+MACs {{ ssh_MACs }}
+ClientAliveInterval {{ ssh_ClientAliveInterval }}
+ClientAliveCountMax {{ ssh_ClientAliveCountMax }}
+LoginGraceTime {{ ssh_LoginGraceTime }}
+Banner {{ ssh_Banner }}
+
+{% if ssh_enable_sftp == true and ssh_sftp_allow_users|length == 0 and ssh_sftp_allow_groups|length == 0 %}
+Subsystem   sftp    /usr/libexec/openssh/sftp-server
+{% endif %}
+{% if ssh_sftp_allow_users|length > 0 %}
+Subsystem   sftp    internal-sftp
+
+Match User {{ ssh_sftp_allow_users|length > 0 }}
+    ChrootDirectory {{ ssh_user_chroot }}
+    ForceCommand internal-sftp
+    AllowTcpForwarding no
+{% endif %}
+
+{% if ssh_sftp_allow_groups|length > 0 %}
+Subsystem   sftp    internal-sftp
+
+Match Group {{ ssh_sftp_allow_groups|length > 0 }}
+    ChrootDirectory {{ ssh_group_chroot }}
+    ForceCommand internal-sftp
+    AllowTcpForwarding no
+{% endif %}

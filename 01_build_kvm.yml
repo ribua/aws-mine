@@ -1,0 +1,16 @@
+--- 
+
+- hosts: all
+  
+  roles:
+    - ing-auditd
+    - ing-cron
+    - ing-limits
+    - ing-login.defs
+    - ing-ntp
+    - ing-pamd
+    - ing-resolv.conf
+    - ing-rsyslog
+    - ing-smtp
+    - ing-ssh
+    - ing-tuned

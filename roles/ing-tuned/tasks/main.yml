@@ -1,0 +1,73 @@
+---
+# tasks file for ing-tuned
+
+- name: Ensure tuned is installed on {{ inventory_hostname }}
+  yum:
+    name: tuned
+    state: latest
+
+- name: Start and Enable the tuned service
+  service:
+    name: tuned
+    state: started
+    enabled: yes
+
+- name: CHECK if the /etc/tuned/{{ profile_tuned }} directory exists
+  stat:
+    path: /etc/tuned/{{ profile_tuned }}
+  register: tuneddir
+
+- name: Create the /etc/tuned/{{ profile_tuned }} if it does not exist
+  file:
+    path: /etc/tuned/{{ profile_tuned }}
+    mode: 0644
+    owner: root
+    group: root
+    seuser: system_u
+    setype: tuned_etc_t
+    state: directory
+  when: not tuneddir.stat.exists
+
+
+- name: Deploy the {{ profile_tuned }} Tuned Profile Configuration
+  template:
+    src: tuned.conf.j2
+    dest: /etc/tuned/{{ profile_tuned }}/tuned.conf
+    mode: 0644
+    owner: root
+    group: root
+    seuser: system_u
+    setype: tuned_etc_t
+    force: yes
+  register: tuned_deploy
+
+- name: Deploy the {{ profile_tuned }} Tuned Profile Script if Configured
+  template:
+    src: tuned_script.conf.j2
+    dest: /etc/tuned/{{ profile_tuned }}/{{ profile_tuned_params.script.name }}
+    mode: 0744
+    owner: root
+    group: root
+    seuser: system_u
+    setype: tuned_etc_t
+    force: yes
+  when: profile_tuned_enable_script
+  register: tuned_script_deploy
+
+- name: Enable Dynamic tuning
+  replace:
+    path: /etc/tuned/tuned-main.conf
+    regexp: '^.*dynamic_tuning.*'
+    replace: 'dynamic_tuning = 1'
+
+- name: Apply the profile
+  shell: 'tuned-adm profile {{ profile_tuned }}'
+  register: profile
+  when: tuned_deploy is changed
+  failed_when: profile.rc == 1
+
+- name: CHECK Tuned Profile is Active
+  shell: 'tuned-adm active'
+  register: tuned_check
+  failed_when: ' profile_tuned  not in tuned_check.stdout'
+  changed_when: tuned_check.rc != 0
