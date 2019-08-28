@@ -1,7 +1,7 @@
 STATE_RES_NAME: my-ansible
 ec2_region: ca-central-1
 ec2_instance_type: t2.micro
-ec2_image: ami-01f1d7726c3fd3971
+ec2_image: ami-0b85d4ff00de6a225
 ec2_keypair: linux-box2
 ec2_volume_size: 8
 ec2_count: 1
