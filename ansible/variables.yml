@@ -1,17 +1,16 @@
 STATE_RES_NAME: my-ansible
-ec2_region: ca-central-1
-ec2_instance_type: t2.micro
-ec2_image: ami-0b85d4ff00de6a225
-ec2_keypair: linux-box2
-ec2_volume_size: 8
-ec2_count: 1
-ec2_security_group_id: sg-40ae922c
-ec2_subnet_id: subnet-8fa7c1e7
-ec2_tag_Type: t2.micro
-ec2_tag_Role: ribus_world
+#ec2_region: ca-central-1
+#ec2_instance_type: t2.micro
+#ec2_image: ami-0b85d4ff00de6a225
+#ec2_keypair: linux-box2
+#ec2_volume_size: 8
+#ec2_count: 1
+#ec2_security_group_id: sg-40ae922c
+#ec2_subnet_id: subnet-8fa7c1e7
+#ec2_tag_Type: t2.micro
+#ec2_tag_Role: ribus_world
 
 
-STATE_RES_NAME: my-ansible
 ec2_winregion: ca-central-1
 ec2_wininstance_type: t2.micro
 ec2_winimage: ami-0b16295142ee8ce8f
