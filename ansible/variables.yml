@@ -7,7 +7,7 @@ ec2_volume_size: 8
 ec2_count: 1
 ec2_security_group_id: sg-40ae922c
 ec2_subnet_id: subnet-8fa7c1e7
-ec2_tag_Type: linux
+ec2_tag_Type: t2.micro
 ec2_tag_Role: ribus_world
 
 
