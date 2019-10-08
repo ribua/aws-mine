@@ -1,0 +1,18 @@
+{{ ansible_managed | comment }}
+
+# main.cf - Managed by Ansible
+
+mydestination = localhost.localdomain, localhost, {{ ansible_hostname }}, {{ ansible_hostname }}.localdomain, {{ ansible_hostname }}.{{ ansible_domain }}
+mynetworks = $config_directory/mynetworks
+relayhost = [{{ postfix_relayhost }}]:{{ postfix_relayhost_port }}
+
+myhostname = {{ ansible_hostname }}
+mydomain = {{ ansible_domain }}
+myorigin = {{ ansible_hostname }}.{{ ansible_domain }}
+allowed_interfaces = myhostname
+
+strict_rfc821_envelopes = yes
+
+smtpd_helo_required = yes
+smtpd_client_restrictions = permit_mynetworks, reject_unknown_client_hostname
+

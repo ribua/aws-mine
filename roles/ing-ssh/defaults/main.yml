@@ -1,0 +1,27 @@
+---
+# defaults file for ing-ssh
+ssh_enable_root_login: false
+ssh_enable_sftp: true
+ssh_sftp_allow_users: ""
+ssh_sftp_allow_groups: ""
+ssh_user_chroot: ""
+ssh_group_chroot: ""
+ssh_Protocol: "2"
+ssh_SyslogFacility: "AUTHPRIV"
+ssh_LogLevel: "INFO"
+ssh_PasswordAuthentication: true
+ssh_ChallengeResponseAuthentication: false
+ssh_UsePAM: true
+ssh_X11Forwarding: false
+ssh_UseDNS: false
+ssh_MaxAuthTries: "3"
+ssh_IgnoreRhosts: false
+ssh_HostbasedAuthentication: false
+ssh_PermitEmptyPasswords: false
+ssh_PermitUserEnvironment: false
+ssh_Ciphers: "aes128-ctr,aes192-ctr,aes256-ctr"
+ssh_MACs: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com"
+ssh_ClientAliveInterval: "900"
+ssh_ClientAliveCountMax: "0"
+ssh_LoginGraceTime: "60"
+ssh_Banner: "/etc/issue.net"

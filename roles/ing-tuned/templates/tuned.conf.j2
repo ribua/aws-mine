@@ -1,0 +1,52 @@
+{{ ansible_managed | comment }}
+
+# THIS FILE IS MANAGED VIA ANSIBLE
+#
+
+[main]
+summary="{{ profile_tuned_params.main.summary }}"
+include={{ profile_tuned_params.main.include }}
+
+{% if profile_tuned_params.sysctl is defined %}
+[sysctl]
+{% if profile_tuned_params.sysctl.vmdirty_ratio is defined %}
+vm.dirty_ratio={{ profile_tuned_params.sysctl.vmdirty_ratio }}
+{% endif %}
+{% if profile_tuned_params.sysctl.vmswappiness is defined %}
+vm.swappiness={{ profile_tuned_params.sysctl.vmswappiness }}
+{% endif %}
+{% if profile_tuned_params.sysctl.fs_file_max is defined %}
+fs.file-max={{ profile_tuned_params.sysctl.fs_file_max }}
+{% endif %}
+{% if profile_tuned_params.sysctl.net_core_somaxconn is defined %}
+net.core.somaxconn={{ profile_tuned_params.sysctl.net_core_somaxconn }}
+{% endif %}
+{% if profile_tuned_params.sysctl.kernel_shmmax is defined %}
+kernel.shmmax={{ profile_tuned_params.sysctl.kernel_shmmax }}
+{% endif %}
+{% if profile_tuned_params.sysctl.vm_overcommit_memory is defined %}
+vm.overcommit_memory={{ profile_tuned_params.sysctl.vm_overcommit_memory }}
+{% endif %}
+
+{% endif %}
+
+{% if profile_tuned_params.disk is defined %}
+[disk]
+elevator={{ profile_tuned_params.disk.elevator }}
+{% endif %}
+
+{% if profile_tuned_params.vm is defined %}
+[vm]
+transparent_hugepages={{ profile_tuned_params.vm.transparent_hugepages }} 
+{% endif %}
+
+{% if profile_tuned_enable_script %}
+[script]
+script={{ profile_tuned_params.script.name }}
+{% endif %}
+
+{% if profile_tuned_params.bootloader is defined %}
+[bootloader]
+cmdline={{ profile_tuned_params.bootloader.cmdline }}
+{% endif %}
+

@@ -1,0 +1,10 @@
+---
+# tasks file for ing-resolv.conf
+- name: Deploy resolv.conf template
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0444
+  register: resolv_deploy

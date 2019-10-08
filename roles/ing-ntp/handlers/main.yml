@@ -1,0 +1,13 @@
+---
+# handlers file for ing-ntp
+
+- name: restart ntpd
+  service:
+    name: ntpd
+    state: restarted
+
+- name: enable ntpd
+  service:
+    name: ntpd
+    state: started
+    enabled: yes

@@ -1,0 +1,6 @@
+---
+# defaults file for ing-resolv.conf
+resolv_dns_servers:
+  - '153.107.37.53'
+  - '153.107.101.53'
+resolv_dns_search_domain: model.dummy_name

@@ -1,0 +1,24 @@
+---
+# defaults file for ing-pamd
+
+# Password aging settings
+os_auth_pw_max_age: 60
+os_auth_pw_min_age: 10
+os_auth_pw_warn_age: 7
+passhistory: 6
+
+# Inactivity and Failed attempts lockout settings
+fail_deny: 5
+fail_unlock: 0
+inactive_lock: 0
+shell_timeout: 900
+solaris_accountunlock_dir: /usr/local
+
+# Password complexity settings
+pwquality_minlen: 8
+pwquality_maxrepeat: 3
+pwquality_lcredit: -1
+pwquality_ucredit: -1
+pwquality_dcredit: -1
+pwquality_ocredit: -1
+solaris_dictionary_minwordlength: 5

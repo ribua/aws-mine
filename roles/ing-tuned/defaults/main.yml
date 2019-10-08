@@ -1,0 +1,19 @@
+---
+# defaults file for ing-tuned
+
+profile_tuned: ING-Guest-VM
+profile_tuned_enable_script: false
+profile_tuned_params:
+  main:
+    summary: Optimize for Virtual Guests Workloads
+    include: throughput-performance
+  sysctl:
+    vmdirty_ratio: 30
+    vmswappiness: 30
+  disk:
+    elevator: deadline
+  script:
+    name: script.sh
+  bootloader:
+    cmdline: ' elevator=deadline'
+profile_tuned_script: ''

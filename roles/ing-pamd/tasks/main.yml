@@ -1,0 +1,7 @@
+---
+# tasks file for ing-pamd
+
+- name: Apply PAM configs on {{ inventory_hostname }}
+  include: pam_el.yml
+  tags: pam
+  when: ansible_distribution == 'RedHat'

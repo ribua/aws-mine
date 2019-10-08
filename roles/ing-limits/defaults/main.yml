@@ -1,0 +1,2 @@
+---
+os_security_kernel_enable_core_dump: false

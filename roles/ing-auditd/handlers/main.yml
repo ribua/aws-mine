@@ -1,0 +1,7 @@
+---
+# handlers file for ing-auditd
+- name: enable auditd
+  service:
+    name: auditd
+    state: started
+    enabled: yes

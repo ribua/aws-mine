@@ -1,0 +1,33 @@
+---
+# tasks file for ing-smtp
+
+- name: OS | Postfix
+  block:
+  - name: OS | Postfix | Make sure Postfix is installed
+    yum:
+      name: postfix
+      state: installed
+    tags:
+      - os
+      - smtp
+      - postfix
+
+  - name: OS | Postfix | Make sure Postfix service is enabled
+    service:
+      name: postfix
+      enabled: yes
+    tags:
+      - os
+      - smtp
+      - postfix
+
+  - name: OS | Postfix | Push out our main.cf
+    template:
+      src: main.cf.j2
+      dest: /etc/postfix/main.cf
+    notify: restart postfix
+    tags:
+      - os
+      - smtp
+      - postfix
+  when: ansible_fqdn not in utility_servers

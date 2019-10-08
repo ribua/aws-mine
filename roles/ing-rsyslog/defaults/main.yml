@@ -1,0 +1,6 @@
+---
+# defaults file for ing-rsyslog
+rsyslog_server:
+  - server1
+  - server2
+server_port: 514

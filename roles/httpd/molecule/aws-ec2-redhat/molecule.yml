@@ -1,0 +1,20 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: ec2
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: ami-0b85d4ff00de6a225
+    instance_type: t2.micro
+    vpc_subnet_id: subnet-8fa7c1e7
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

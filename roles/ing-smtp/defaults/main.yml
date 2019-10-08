@@ -1,0 +1,10 @@
+---
+# defaults file for ing-smtp
+#
+utility_servers:
+  - test1
+  - test2
+
+# Mail
+postfix_relayhost: nfvi-smtp-vs.model
+postfix_relayhost_port: 25
