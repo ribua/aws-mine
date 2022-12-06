@@ -302,6 +302,6 @@ Hope this helped give you an insight into how FC storage can be configured on Op
 
 Below are the relevent links for this 
 
-https://github.com/dell/dell-csi-operator
-https://docs.openshift.com/container-platform/4.11/storage/persistent_storage/persistent-storage-fibre.html
+- https://github.com/dell/dell-csi-operator
+- https://docs.openshift.com/container-platform/4.11/storage/persistent_storage/persistent-storage-fibre.html
 
