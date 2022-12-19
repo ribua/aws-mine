@@ -1,4 +1,4 @@
-# How to configure Dell FC Powermax for Persistent Storage on Openshift 4 ?
+# How to configure Dell FC Powermax for Persistent Storage on Openshift 4 
 
 
 ![Storage](storage.jpg)
