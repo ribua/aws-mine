@@ -21,7 +21,7 @@ Multipath configured across all compute nodes.
 
 - Create the base64 contents for multipath configuration as follows
 
-```yaml
+    ```yaml
 echo 'defaults {
 user_friendly_names yes
 find_multipaths yes
