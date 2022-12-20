@@ -54,9 +54,9 @@ Multipath configured across all compute nodes.
             path: /etc/multipath.conf
     ```
 
-```bash
-# oc apply -f machineconfig.yaml 
-```
+    ```bash
+    # oc apply -f machineconfig.yaml 
+    ```
 
 This triggers an mcp update and you can find all the nodes in updating state for which the changes are being applied and then the nodes being restarted. This enables and starts the service on the compute nodes. 
 
@@ -64,18 +64,18 @@ This triggers an mcp update and you can find all the nodes in updating state for
 - We are required to configure the secret with user access to the Powermax management console.
 NOTE: The secret needs to be configured with the name powermax-creds.
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: powermax-creds
-  namespace: dell-storage-powermax
-type: Opaque
-data:
-  # specify base64 creds 
-  username: <base64 contents of username>
-  password: <base64 contents of password>
-```
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: powermax-creds
+      namespace: dell-storage-powermax
+    type: Opaque
+    data:
+      # specify base64 creds 
+      username: <base64 contents of username>
+      password: <base64 contents of password>
+    ```
 
 This is created into the namespace dell-storage-powermax in our case that we will be using for deploying our Powermax custom resource that was previously created. 
 
