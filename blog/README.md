@@ -3,16 +3,16 @@
 
 ![Storage](storage.jpg)
 
-OpenShift Container Platform supports the use of Fibre Channel (FC) based storage that allows users to provision volumes based on it. The Kubernetes persistent volume framework allows users to request those resources without knowledge of the underlying storage infrastructure. 
+Red Hat OpenShift Container Platform supports the use of Fibre Channel (FC) based storage that allows users to provision volumes based on it. The Kubernetes persistent volume framework allows users to request those resources without knowledge of the underlying storage infrastructure. 
 
-This article provides information on how we can configure and use Dell’s [Powermax Storage](https://www.dell.com/en-au/dt/storage/powermax.htm#tab0=0) on OpenShift 4 clusters with the help of the Operator. The Dell Powermax in addition has the capabilities for expansion and snapshots of volumes provisioned of it. 
+This article provides information on how we can configure and use Dell’s [Powermax Storage](https://www.dell.com/en-au/dt/storage/powermax.htm#tab0=0) on OpenShift 4 clusters with the help of the Dell CSI Operator. The Dell Powermax in addition has the capabilities for expansion and snapshots of volumes provisioned of it. 
 
 The Dell CSI Operator is a Kubernetes Operator, which can be used to install and manage the CSI Drivers provided by Dell for various storage platforms. This operator is available as a community operator and certified operator for OpenShift clusters and can be deployed using the OpenShift Container Platform. Both these methods of installation use OLM (Operator Lifecycle Manager). The operator can also be deployed manually.
 
 
 ### Prerequisites
 
-Before we proceed with the installation of the Operator, the following prerequisites are required as part of the installation
+Before we proceed with the installation of the Operator, the following prerequisites are required as part of the installation.
 
 
 #### Multipath
