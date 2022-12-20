@@ -33,26 +33,26 @@ Multipath configured across all compute nodes.
 
 - Create a MachineConfig file and specify the above contents to it. 
 
-```yaml
-apiVersion: machineconfiguration.openshift.io/v1
-kind: MachineConfig
-metadata:
-  name: multipath-conf-default
-  labels:
-    machineconfiguration.openshift.io/role: worker
-spec:
-  config:
-    ignition:
-      version: 3.1.0
-    storage:
-      files:
-      - contents:
-          source: data:text/plain;charset=utf-8;base64,ZGVmYXVsdHMgewoKdXNlcl9mcmllbmRseV9uYW1lcyB5ZXMKCmZpbmRfbXVsdGlwYXRocyB5ZXMKCn0KCmJsYWNrbGlzdCB7Cgp9Cg==
-          verification: {}
-        filesystem: root
-        mode: 400
-        path: /etc/multipath.conf
-```
+    ```yaml
+    apiVersion: machineconfiguration.openshift.io/v1
+    kind: MachineConfig
+    metadata:
+      name: multipath-conf-default
+      labels:
+        machineconfiguration.openshift.io/role: worker
+    spec:
+      config:
+        ignition:
+          version: 3.1.0
+        storage:
+          files:
+          - contents:
+              source: data:text/plain;charset=utf-8;base64,ZGVmYXVsdHMgewoKdXNlcl9mcmllbmRseV9uYW1lcyB5ZXMKCmZpbmRfbXVsdGlwYXRocyB5ZXMKCn0KCmJsYWNrbGlzdCB7Cgp9Cg==
+              verification: {}
+            filesystem: root
+            mode: 400
+            path: /etc/multipath.conf
+    ```
 
 ```bash
 # oc apply -f machineconfig.yaml 
