@@ -22,14 +22,14 @@ Multipath configured across all compute nodes.
 - Create the base64 contents for multipath configuration as follows
 
     ```yaml
-echo 'defaults {
-user_friendly_names yes
-find_multipaths yes
+       echo 'defaults {
+       user_friendly_names yes
+       find_multipaths yes
 }
 blacklist {
 }' | base64 -w0
 ZGVmYXVsdHMgewoKdXNlcl9mcmllbmRseV9uYW1lcyB5ZXMKCmZpbmRfbXVsdGlwYXRocyB5ZXMKCn0KCmJsYWNrbGlzdCB7Cgp9Cg==
-```
+    ```
 
 - Create a MachineConfig file and specify the above contents to it. 
 
